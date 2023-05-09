@@ -25,25 +25,25 @@ app.listen(port, (err) => {
 });
 
 const welcome = (req, res) => {
-  res.send("Welcome to my favourite movie list");
+  res.send("Welcome to my favourite users list");
 };
 const HANDLER = (req, res) => {
   database
-    .query("select * from movies")
-    .then(([movies]) => {
-      res.json(movies);
+    .query("select * from userss")
+    .then(([userss]) => {
+      res.json(userss);
     })
     .catch((err) => {
       console.error(err);
       res.status(500).send("Error retrieving data from database");
     });
 };
-const postMovie = (req, res) => {
+const postusers = (req, res) => {
   const { title, director, year, color, duration } = req.body;
 
   database
     .query(
-      "INSERT INTO movies(title, director, year, color, duration) VALUES (?, ?, ?, ?, ?)",
+      "INSERT INTO userss(title, director, year, color, duration) VALUES (?, ?, ?, ?, ?)",
       [title, director, year, color, duration]
     )
     .then(([result]) => {
@@ -51,9 +51,9 @@ const postMovie = (req, res) => {
     })
     .catch((err) => {
       console.error(err);
-      res.status(500).send("Error saving the movie");
+      res.status(500).send("Error saving the users");
     });
 };
 app.get("/", welcome);
-app.get("/api/movies", HANDLER);
-app.post("/api/movies", postMovie);
+app.get("/api/userss", HANDLER);
+app.post("/api/userss", postusers);
